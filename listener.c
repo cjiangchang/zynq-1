@@ -77,7 +77,7 @@ int main(void)
 	addr_len = sizeof their_addr;
 	
 	unsigned short seq;
-	unsigned int timestamp;
+	unsigned int timestamp, pmodTs, pmodVal;
 	int basicb[55] = {0};
 	int offset;
 	char num;
@@ -105,6 +105,15 @@ int main(void)
 			memcpy(&timestamp, buf+offset, sizeof(unsigned int));
 			offset += sizeof(unsigned int);
 			printf("Timestamp: %u\n", timestamp);
+	
+			//get the pmod timestamp
+			memcpy(&pmodTs, buf+offset, sizeof(unsigned int));
+			offset += sizeof(unsigned int);
+            printf("PMOD Timestamp: %u\n", pmodTs);
+
+			memcpy(&pmodVal, buf+offset, sizeof(unsigned int));
+            offset += sizeof(unsigned int);
+            printf("PMOD Value: %u\n", pmodVal);
 	
 			//get the basic block counts
 			while(1){
