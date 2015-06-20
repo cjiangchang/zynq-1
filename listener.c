@@ -80,6 +80,8 @@ int main(void)
 	unsigned int timestamp;
 	int basicb[55] = {0};
 	int offset;
+	char num;
+	uint32_t diffCount;
 
 	while(1){
 		offset = 0;
@@ -97,8 +99,20 @@ int main(void)
 		//get the timestamp
 		memcpy(&timestamp, buf+offset, sizeof(unsigned int));
 		offset += sizeof(unsigned int);
-		printf("Timestamp: %du\n", timestamp);
-	
+		printf("Timestamp: %u\n", timestamp);
+
+		//get the basic block counts
+		while(1){
+			if (buf[offset] == '#'){
+				break;
+			}
+			memcpy(&num, buf+offset, sizeof(char));
+			offset += sizeof(char);
+			printf("counter num: %d\n", (unsigned int)num);
+			memcpy(&diffCount, buf+offset, sizeof(uint32_t));
+			offset += sizeof(uint32_t);
+			printf("BB diff: %u\n", diffCount);
+		}		
 
 	}
 	close(sockfd);
