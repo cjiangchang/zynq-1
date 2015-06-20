@@ -84,7 +84,6 @@ int main(void)
 	uint32_t diffCount;
 
 	while(1){
-		offset = 0;
 		if ((numbytes = recvfrom(sockfd, buf, MAXBUFLEN-1 , 0,
 			(struct sockaddr *)&their_addr, &addr_len)) == -1) {
 			perror("recvfrom");
@@ -92,6 +91,7 @@ int main(void)
 		}
 
 
+		offset = 0;
 		while(1){
 			if (buf[offset] == 'D'){
 				break;
@@ -118,11 +118,14 @@ int main(void)
 				printf("counter num: %d\n", (unsigned int)num);
 				memcpy(&diffCount, buf+offset, sizeof(uint32_t));
 				offset += sizeof(uint32_t);
+				diffCount = ntohl(diffCount);	
 				printf("BB diff: %u\n", diffCount);
 				//update the local basic block counts
 				basicb[num] += diffCount;
-			}		
+			}
+			printf("\n");		
 		}
+		printf("\n\n");
 	}
 
 	close(sockfd);
