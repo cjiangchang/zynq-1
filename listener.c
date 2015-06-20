@@ -76,7 +76,13 @@ int main(void)
 
 	addr_len = sizeof their_addr;
 	
+	unsigned short seq;
+	unsigned int timestamp;
+	int basicb[55] = {0};
+	int offset;
+
 	while(1){
+		offset = 0;
 		if ((numbytes = recvfrom(sockfd, buf, MAXBUFLEN-1 , 0,
 			(struct sockaddr *)&their_addr, &addr_len)) == -1) {
 			perror("recvfrom");
@@ -84,10 +90,15 @@ int main(void)
 		}
 
 		//get the snapshot number
-		unsigned short seq;
 		memcpy(&seq, buf, sizeof(unsigned short));
+		offset += sizeof(unsigned short);
 		printf("Seq num: %hu\n", seq);
-		//get the time stamp
+		
+		//get the timestamp
+		memcpy(&timestamp, buf+offset, sizeof(unsigned int));
+		offset += sizeof(unsigned int);
+		printf("Timestamp: %du\n", timestamp);
+	
 
 	}
 	close(sockfd);
