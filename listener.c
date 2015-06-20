@@ -91,30 +91,40 @@ int main(void)
 			exit(1);
 		}
 
-		//get the snapshot number
-		memcpy(&seq, buf, sizeof(unsigned short));
-		offset += sizeof(unsigned short);
-		printf("Seq num: %hu\n", seq);
-		
-		//get the timestamp
-		memcpy(&timestamp, buf+offset, sizeof(unsigned int));
-		offset += sizeof(unsigned int);
-		printf("Timestamp: %u\n", timestamp);
 
-		//get the basic block counts
 		while(1){
-			if (buf[offset] == '#'){
+			if (buf[offset] == 'D'){
 				break;
 			}
-			memcpy(&num, buf+offset, sizeof(char));
-			offset += sizeof(char);
-			printf("counter num: %d\n", (unsigned int)num);
-			memcpy(&diffCount, buf+offset, sizeof(uint32_t));
-			offset += sizeof(uint32_t);
-			printf("BB diff: %u\n", diffCount);
-		}		
-
+			//get the snapshot number
+			memcpy(&seq, buf, sizeof(unsigned short));
+			offset += sizeof(unsigned short);
+			printf("Seq num: %hu\n", seq);
+		
+			//get the timestamp
+			memcpy(&timestamp, buf+offset, sizeof(unsigned int));
+			offset += sizeof(unsigned int);
+			printf("Timestamp: %u\n", timestamp);
+	
+			//get the basic block counts
+			while(1){
+				if (buf[offset] == '#'){
+					offset += 1;
+					break;
+				}
+				//get the basic block number and the difference
+				memcpy(&num, buf+offset, sizeof(char));
+				offset += sizeof(char);
+				printf("counter num: %d\n", (unsigned int)num);
+				memcpy(&diffCount, buf+offset, sizeof(uint32_t));
+				offset += sizeof(uint32_t);
+				printf("BB diff: %u\n", diffCount);
+				//update the local basic block counts
+				basicb[num] += diffCount;
+			}		
+		}
 	}
+
 	close(sockfd);
 
 	return 0;
