@@ -97,7 +97,7 @@ int main(void)
 				break;
 			}
 			//get the snapshot number
-			memcpy(&seq, buf, sizeof(unsigned short));
+			memcpy(&seq, buf+offset, sizeof(unsigned short));
 			offset += sizeof(unsigned short);
 			printf("Seq num: %hu\n", seq);
 		
