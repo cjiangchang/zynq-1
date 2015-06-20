@@ -81,8 +81,8 @@ int main(void)
 		exit(1);
 	}
 
-	unsigned short* seq;
-	memcpy(seq, buf, sizeof(unsigned short));
+	unsigned short seq;
+	memcpy(&seq, buf, sizeof(unsigned short));
 	printf("Seq num: %hu", *seq);
 
 	printf("listener: got packet from %s\n",
