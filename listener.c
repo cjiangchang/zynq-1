@@ -15,7 +15,7 @@
 
 #define MYPORT "4950"	// the port users will be connecting to
 
-#define MAXBUFLEN 100
+#define MAXBUFLEN 1500
 
 // get sockaddr, IPv4 or IPv6:
 void *get_in_addr(struct sockaddr *sa)
@@ -80,6 +80,10 @@ int main(void)
 		perror("recvfrom");
 		exit(1);
 	}
+
+	unsigned short* seq;
+	memcpy(seq, buf, sizeof(unsigned short));
+	printf("Seq num: %hu", seq);
 
 	printf("listener: got packet from %s\n",
 		inet_ntop(their_addr.ss_family,
