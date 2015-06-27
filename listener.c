@@ -78,6 +78,7 @@ int main(void)
 	
 	unsigned short seq;
 	unsigned int timestamp, pmodTs, pmodVal;
+	unsigned int counter0, counter1, counter2, counter3, counter4, counter5;
 	int basicb[55] = {0};
 	int offset;
 	char num;
@@ -114,7 +115,33 @@ int main(void)
 			memcpy(&pmodVal, buf+offset, sizeof(unsigned int));
             offset += sizeof(unsigned int);
             printf("PMOD Value: %u\n", pmodVal);
-	
+
+			//get the pmu counter values
+			//counter 0
+			memcpy(&counter0, buf+offset, sizeof(unsigned int));
+            offset += sizeof(unsigned int);
+            printf("counter 0: %u\n", counter0);
+            //counter 1
+            memcpy(&counter1, buf+offset, sizeof(unsigned int));
+            offset += sizeof(unsigned int);
+            printf("counter 1: %u\n", counter1);
+            //counter 2
+            memcpy(&counter2, buf+offset, sizeof(unsigned int));
+            offset += sizeof(unsigned int);
+            printf("counter 2: %u\n", counter2);
+            //counter 3
+            memcpy(&counter3, buf+offset, sizeof(unsigned int));
+            offset += sizeof(unsigned int);
+            printf("counter 3: %u\n", counter3);
+            //counter 4
+            memcpy(&counter4, buf+offset, sizeof(unsigned int));
+            offset += sizeof(unsigned int);
+            printf("counter 4: %u\n", counter4);
+            //counter 5
+            memcpy(&counter5, buf+offset, sizeof(unsigned int));
+            offset += sizeof(unsigned int);
+            printf("counter 5: %u\n", counter5);
+
 			//get the basic block counts
 			while(1){
 				if (buf[offset] == '#'){
