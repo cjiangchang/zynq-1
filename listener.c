@@ -94,7 +94,7 @@ int main(void)
 
 		offset = 0;
 		while(1){
-			if (buf[offset] == 'D'){
+			if (buf[offset] == '~'){
 				break;
 			}
 			//get the snapshot number
@@ -144,7 +144,7 @@ int main(void)
 
 			//get the basic block counts
 			while(1){
-				if (buf[offset] == '#'){
+				if (buf[offset] == '}'){
 					offset += 1;
 					break;
 				}
