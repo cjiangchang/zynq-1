@@ -79,7 +79,7 @@ int main(void)
 	unsigned short seq;
 	unsigned int timestamp, pmodTs, pmodVal;
 	unsigned int counter0, counter1, counter2, counter3, counter4, counter5;
-	int basicb[55] = {0};
+	int basicb[115] = {0};
 	int offset;
 	char num;
 	uint32_t diffCount;
