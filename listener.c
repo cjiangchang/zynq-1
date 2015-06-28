@@ -156,7 +156,7 @@ int main(void)
 				//get the basic block number and the difference
 				memcpy(&num, buf+offset, sizeof(char));
 				offset += sizeof(char);
-				printf("counter num: %d\n", (unsigned int)num);
+				printf("counter num: %u\n", (unsigned int)num);
 				memcpy(&diffCount, buf+offset, sizeof(uint32_t));
 				offset += sizeof(uint32_t);
 				diffCount = ntohl(diffCount);	
