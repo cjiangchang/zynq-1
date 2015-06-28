@@ -95,7 +95,9 @@ int main(void)
 
 		offset = 0;
 		while(1){
-			if (buf[offset] == (unsigned char)250){
+			memcpy(&eofDelim, buf+offset, sizeof(unsigned char));
+            eofDelim = (unsigned int)eofDelim;
+			if (eofDelim == 250){
 				break;
 			}
 			//get the snapshot number
