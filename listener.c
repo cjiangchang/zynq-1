@@ -81,7 +81,7 @@ int main(void)
 	unsigned int counter0, counter1, counter2, counter3, counter4, counter5;
 	int basicb[115] = {0};
 	int offset;
-	char num;
+	unsigned int num;
 	uint32_t diffCount;
 	unsigned int bbDelim, eofDelim;
 
@@ -154,9 +154,10 @@ int main(void)
 					break;
 				}
 				//get the basic block number and the difference
-				memcpy(&num, buf+offset, sizeof(char));
+				memcpy(&num, buf+offset, sizeof(unsigned char));
 				offset += sizeof(char);
-				printf("counter num: %u\n", (unsigned int)num);
+				num = (unsigned int)num;
+				printf("counter num: %u\n", num);
 				memcpy(&diffCount, buf+offset, sizeof(uint32_t));
 				offset += sizeof(uint32_t);
 				diffCount = ntohl(diffCount);	
