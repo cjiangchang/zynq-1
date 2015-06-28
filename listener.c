@@ -83,6 +83,7 @@ int main(void)
 	int offset;
 	char num;
 	uint32_t diffCount;
+	unsigned int bbDelim, eofDelim;
 
 	while(1){
 		if ((numbytes = recvfrom(sockfd, buf, MAXBUFLEN-1 , 0,
@@ -144,7 +145,9 @@ int main(void)
 
 			//get the basic block counts
 			while(1){
-				if (buf[offset] == (unsigned char)240){
+				memcpy(&bbDelim, buf+offset, sizeof(unsigned char));
+				bbDelim = (unsigned int)bbDelim;
+				if (bbDelim == 240){
 					offset += 1;
 					break;
 				}
